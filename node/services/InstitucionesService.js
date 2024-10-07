@@ -1,17 +1,18 @@
-import { json } from "sequelize";
 import InstitucionModel from "../models/InstitucionModel.js";
 
 export const findAllInstituciones = async () => {
     try {
         const instituciones = await InstitucionModel.findAll();
-        if (!instituciones) {
-            throw new Error("Una institucion no respeta el formato");
+        const institucionesFiltradas = instituciones.filter(institucion => institucion.estado === 1);
+        if (!instituciones || instituciones.length === 0) {
+            throw new Error("No se encontraron instituciones");
         }
-        return instituciones;
+        return institucionesFiltradas;
     } catch (error) {
         throw new Error(error.message);
     }
-}
+};
+
 
 export const findInstitucionById = async (id) => {
     try {
