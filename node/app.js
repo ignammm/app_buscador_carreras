@@ -1,5 +1,6 @@
 import express from "express";
-import router from "./api/routes/routes.js";
+import CarrerasRoutes from './api/routes/CarrerasRoutes.js'
+import InstitucionesRoutes from './api/routes/InstitucionesRoutes.js'
 import db from "./database/db.js";
 import cors from 'cors';
 
@@ -9,7 +10,10 @@ app.use(cors())
 
 app.use(express.json())
 
-app.use('/instituciones', router)
+
+app.use('/instituciones', InstitucionesRoutes)
+
+app.use('/carreras', CarrerasRoutes)
 
 try {
     await db.authenticate()
