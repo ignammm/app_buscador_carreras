@@ -1,25 +1,13 @@
 import React from 'react';
 import { useFetch } from '../useFetch.js';
 import { Link } from 'react-router-dom';
+import { useDelete } from '../useDelete.js';
 
 const URI = 'http://localhost:8000/instituciones';
 
 const CompShowInstituciones = () => {
   const { data: instituciones, loading, error } = useFetch(URI);
-
-  const deleteInstitucion = async (id) => {
-    try {
-      const response = await fetch(`${URI}/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Error al eliminar la institución');
-      }
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const deleteInstitucion = useDelete(URI); 
 
   if (loading) return <div>Loading...</div>; 
   if (error) return <div>Error: {error}</div>;  
@@ -53,6 +41,9 @@ const CompShowInstituciones = () => {
                 <button onClick={() => deleteInstitucion(institucion.id)}>Eliminar</button>
                 <Link to={`/editar-institucion/${institucion.id}`}>
                   <button>Editar</button>
+                </Link>
+                <Link to={`/instituciones/${institucion.id}/carreras`}>
+                  <button>Carreras</button>
                 </Link>
               </td>
             </tr>

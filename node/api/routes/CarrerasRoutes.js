@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.get('/', getAllCarreras);          
+router.get('/:id_institucion', getAllCarreras);          
 router.get('/:id', getCarreraById);      
 router.post('/', createCarrera);          
 router.put('/:id', updateCarrera);       

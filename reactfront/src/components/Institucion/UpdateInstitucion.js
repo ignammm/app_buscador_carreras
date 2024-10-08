@@ -1,4 +1,3 @@
-// src/components/Institucion/UpdateInstitucion.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -43,7 +42,7 @@ const UpdateInstitucion = () => {
         body: JSON.stringify(institucion),
       });
       if (!response.ok) throw new Error('Error al actualizar la institución');
-      navigate('/'); // Redirige al listado después de actualizar
+      navigate('/'); 
     } catch (error) {
       setError(error.message);
     }

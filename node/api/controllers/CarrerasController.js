@@ -8,7 +8,7 @@ import {
 
 export const getAllCarreras = async (req, res) => {
     try {
-        const carreras = await findAllCarreras(); 
+        const carreras = await findAllCarreras(req.params.id_institucion); 
         return res.status(200).json(carreras); 
     } catch (error) {
         return res.status(500).json({ message: error.message });
