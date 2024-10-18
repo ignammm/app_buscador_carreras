@@ -2,12 +2,15 @@ import InstitucionModel from "../models/InstitucionModel.js";
 
 export const findAllInstituciones = async () => {
     try {
-        const instituciones = await InstitucionModel.findAll();
-        const institucionesFiltradas = instituciones.filter(institucion => institucion.estado === 1);
+        const instituciones = await InstitucionModel.findAll({
+            where: {
+                estado: 1
+            }
+        });
         if (!instituciones || instituciones.length === 0) {
             throw new Error("No se encontraron instituciones");
         }
-        return institucionesFiltradas;
+        return instituciones;
     } catch (error) {
         throw new Error(error.message);
     }
@@ -41,10 +44,20 @@ export const createInstitucionService = async (body) => {
 
 export const updateInstitucionService = async (id, body) => {
     try {
-        await InstitucionModel.update(body, {where: {id: id} });
+        await InstitucionModel.update(body, { where: { id: id } });
+        
+        const institucionActualizada = await InstitucionModel.findByPk(id);
+
+        if (!institucionActualizada) {
+            throw new Error('Institución no devuelta correctamente luego de la actualizacion');
+        }
+
         return {
-            message: 'La institucion se actualizó correctamente'
+
+            message: 'La institucion se actualizó correctamente',
+            institucion: institucionActualizada
         };
+        
     } catch (error) {
         throw new Error ( error.message = 'Algo salio mal al actualizar la institucion');
     }

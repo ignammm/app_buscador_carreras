@@ -6,9 +6,11 @@ export const getAllInstituciones = async (req, res) => {
     try {
         const instituciones = await findAllInstituciones(); 
         return res.status(200).json(instituciones); 
-
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        if (error.message === "No se encontraron instituciones") {
+            return res.status(404).json({ message: error.message });
+        }
+        return res.status(500).json({ message: "Error del servidor" });
     }
 };
 

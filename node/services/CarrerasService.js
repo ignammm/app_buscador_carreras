@@ -1,17 +1,17 @@
 import CarreraModel from "../models/CarreraModel.js";
 
-export const findAllCarreras = async (id_institucion) => {
+export const findAllCarreras = async (id_inst) => {
     try {
         const carreras = await CarreraModel.findAll({
             where: {
-                id_institucion: id_institucion
+                // id_institucion: id_inst,
+                estado: 1
             }
         });
-        const carrerasFiltradas = carreras.filter(carrera => carrera.estado === 1);
-        if (!carrerasFiltradas || carrerasFiltradas.length === 0) {
+        if (!carreras || carreras.length === 0) {
             throw new Error("No se encontraron carreras");
         }
-        return carrerasFiltradas;
+        return carreras;
     } catch (error) {
         throw new Error(error.message);
     }

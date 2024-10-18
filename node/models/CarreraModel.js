@@ -2,6 +2,7 @@ import db from "../database/db.js";
 import { DataTypes } from "sequelize";
 
 const CarrerasModel = db.define('Carreras', {
+    id: { type: DataTypes.INTEGER },
     nombre: { type: DataTypes.STRING(40) },
     tipo: { type: DataTypes.STRING(60) },
     descripcion: { type: DataTypes.STRING(100) },
@@ -15,13 +16,7 @@ const CarrerasModel = db.define('Carreras', {
     observacion: { type: DataTypes.STRING(45) },
     estado: { type: DataTypes.INTEGER },
     prioridad: { type: DataTypes.INTEGER },
-    id_institucion: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: 'Instituciones', 
-            key: 'id',            
-        }
-    }
+    id_institucion: { type: DataTypes.INTEGER}
 });
 
 export default CarrerasModel
