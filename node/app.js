@@ -5,6 +5,7 @@ import db from "./database/db.js";
 import cors from 'cors';
 import AuthRoutes from './api/routes/AuthRoutes.js'
 import authMiddleware from './api/middlewares/authMiddleware.js'
+import { validationInstitucion } from "./api/middlewares/validations/validationInstitucion.js";
 
 const app = express()
 
@@ -13,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 
-app.use('/instituciones' , InstitucionesRoutes)
+app.use('/instituciones', InstitucionesRoutes)
 
 app.use('/carreras' , CarrerasRoutes)
 

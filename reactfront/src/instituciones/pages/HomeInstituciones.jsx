@@ -1,10 +1,12 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useInstituciones } from "../hooks/useInstituciones";
 
-const HomeInstituciones = () => {
-    const { instituciones, setInstituciones, deleteInstitucion, error} = useInstituciones()
 
+const HomeInstituciones = () => {
+    const { instituciones, setInstituciones, deleteInstitucion } = useInstituciones();
+    const navigate = useNavigate();
 
     const handleDelete = async (id) => {
         const result = await deleteInstitucion(id);
@@ -12,10 +14,11 @@ const HomeInstituciones = () => {
 
         setInstituciones(instituciones.filter(institucion => institucion.id !== id));
     };
-    
+
 
     return (
         <>
+            
             <h1>Instituciones</h1>
             <table>
                 <thead>
@@ -45,7 +48,9 @@ const HomeInstituciones = () => {
                                 <td>{institucion.pagina}</td>
                                 <td>
                                     <button onClick={() => handleDelete(institucion.id)}>Eliminar</button>
-                                    
+                                    <button>
+                                        <Link to={`/instituciones/update/${institucion.id}`}>Actualizar</Link>
+                                    </button>
                                 </td>
                             </tr>
                         ))
@@ -53,6 +58,7 @@ const HomeInstituciones = () => {
                 </tbody>
 
             </table>
+            <Link to={'/instituciones/create'}>Crear</Link>
            
         
         

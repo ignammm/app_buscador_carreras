@@ -2,7 +2,7 @@ import db from "../database/db.js";
 import { DataTypes } from "sequelize";
 
 const InstitucionModel = db.define('Instituciones', {
-    id: {type: DataTypes.INTEGER },
+    id: {type: DataTypes.INTEGER, primaryKey: true },
     nombre: { type: DataTypes.STRING(60), unique: true },
     correo: { type: DataTypes.STRING(60), unique: true },
     direccion: { type: DataTypes.STRING(60), unique: true },

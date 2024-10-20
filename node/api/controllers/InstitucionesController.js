@@ -38,6 +38,7 @@ export const updateInstitucion = async (req, res) => {
         const result = await updateInstitucionService(req.params.id, req.body);
         return res.status(201).json(result);
     } catch (error) {
+       
         return res.status(500).json({ message: error.message })
     }
 }

@@ -2,7 +2,7 @@ import db from "../database/db.js";
 import { DataTypes } from "sequelize";
 
 const CarrerasModel = db.define('Carreras', {
-    id: { type: DataTypes.INTEGER },
+    id: { type: DataTypes.INTEGER, primaryKey: true },
     nombre: { type: DataTypes.STRING(40) },
     tipo: { type: DataTypes.STRING(60) },
     descripcion: { type: DataTypes.STRING(100) },

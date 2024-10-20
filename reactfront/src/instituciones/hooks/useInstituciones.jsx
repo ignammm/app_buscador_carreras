@@ -40,58 +40,50 @@ const useInstituciones = () => {
                     'Content-Type': 'application/json'
                     
                 },
-                body: {
-                    body: JSON.stringify(institucion)
-                }
+                body: JSON.stringify(institucion)
+                
             })
 
             if (!result.ok) {
                 const errorData = await result.json()
-                throw new Error(errorData.message);
+                throw new Error(JSON.stringify(errorData.message));
             }
 
             const data = await result.json()
             return data;
 
         } catch (error) {
-
-            console.error('Error:', error.message);
+        
+            throw new Error(error.message);
         }
         
         
         
     };
 
-    const updateInstitucion = async (institucion) => {
-
-        try {
-            const url = 'http://localhost:8000/instituciones'
+     const updateInstitucion = async (id, institucion) => { 
+         try {
+            const url = `http://localhost:8000/instituciones/${id}`; 
             const result = await fetch(url, {
-                method: 'POST',
+                method: 'PUT', 
                 headers: {
                     'Content-Type': 'application/json'
-                    
                 },
-                body: {
-                    body: JSON.stringify(nuevaInstitucion)
-                }
-            })
+                body: JSON.stringify(institucion)
+            });
+
             if (!result.ok) {
-                const errorData = await result.json()
+                const errorData = await result.json();
                 throw new Error(errorData.message);
             }
 
-            const data = await result.json()
-            setInstituciones(instituciones.map(inst => inst.id === id ? data : inst));
-            return data
-
+            const data = await result.json();
+            setInstituciones(instituciones.map(inst => inst.id === id ? data.institucion : inst)); 
+            return;
         } catch (error) {
-
             console.error('Error:', error.message);
+            setError(error.message);
         }
-        
-        
-        
     };
 
 
