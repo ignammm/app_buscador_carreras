@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useInstituciones } from '../hooks/useInstituciones';
 
 const UpdateInstitucion = () => {
     const { id } = useParams();
-    const { instituciones, setInstituciones, updateInstitucion } = useInstituciones();
+    const { instituciones, updateInstitucion } = useInstituciones();
     const [nombre, setNombre] = useState('');
     const [correo, setCorreo] = useState('');
     const [direccion, setDireccion] = useState('');
@@ -23,14 +23,14 @@ const UpdateInstitucion = () => {
             const institucion = instituciones.find(inst => inst.id === parseInt(id));
            
             if (institucion) {
-                setNombre(institucion.nombre);
-                setCorreo(institucion.correo);
-                setDireccion(institucion.direccion);
-                setCue(institucion.cue);
-                setUbicacionLat(institucion.ubicacion_lat); 
-                setUbicacionLong(institucion.ubicacion_long);
-                setTelefono(institucion.telefono);
-                setPagina(institucion.pagina);
+                setNombre(institucion.nombre || '');  
+                setCorreo(institucion.correo || '');
+                setDireccion(institucion.direccion || '');
+                setCue(institucion.cue || '');
+                setUbicacionLat(institucion.ubicacion_lat || ''); 
+                setUbicacionLong(institucion.ubicacion_long || '');
+                setTelefono(institucion.telefono || '');
+                setPagina(institucion.pagina || '');
             }
         };
 

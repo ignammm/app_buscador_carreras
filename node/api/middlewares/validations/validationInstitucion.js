@@ -49,10 +49,8 @@ const validationInstitucion = () => {
             if (!errors.isEmpty()) {
                 
                 const checkErrors = errors.array()
-                console.log(checkErrors);
                 
                 res.status(400).json({
-                    
                     
                     message: checkErrors
                 });

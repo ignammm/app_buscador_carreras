@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const useInstituciones = () => {
     const [instituciones, setInstituciones] = useState([]);
-    const [error, setError] = useState(null);
+    const [error] = useState(null);
     const URI = 'http://localhost:8000/instituciones'
    
     const showInstituciones = async () => {
@@ -71,17 +71,17 @@ const useInstituciones = () => {
                 body: JSON.stringify(institucion)
             });
 
-            if (!result.ok) {
+             if (!result.ok) { 
                 const errorData = await result.json();
-                throw new Error(errorData.message);
+                throw new Error(JSON.stringify(errorData.message));
             }
 
             const data = await result.json();
             setInstituciones(instituciones.map(inst => inst.id === id ? data.institucion : inst)); 
             return;
         } catch (error) {
-            console.error('Error:', error.message);
-            setError(error.message);
+    
+            throw new Error(error.message);
         }
     };
 
