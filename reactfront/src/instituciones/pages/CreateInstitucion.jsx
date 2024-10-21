@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useInstituciones } from '../hooks/useInstituciones';
+import { Link } from "react-router-dom";
 
 const CreateInstitucion = () => {
     const { addInstitucion } = useInstituciones();
@@ -68,6 +69,10 @@ const CreateInstitucion = () => {
 
     return (
         <>
+            <button>
+                <Link to={`/instituciones`}>Volver</Link>
+            </button>
+            <h1>Crear institucion</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Nombre</label>

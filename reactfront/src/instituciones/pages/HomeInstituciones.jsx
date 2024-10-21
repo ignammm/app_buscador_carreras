@@ -48,6 +48,9 @@ const HomeInstituciones = () => {
                                     <button>
                                         <Link to={`/instituciones/${institucion.id}/update`}>Actualizar</Link>
                                     </button>
+                                    <button>
+                                        <Link to={`/instituciones/${institucion.id}/carreras`}>Carreras</Link>
+                                    </button>
                                 </td>
                             </tr>
                         ))

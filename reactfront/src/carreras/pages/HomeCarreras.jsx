@@ -22,7 +22,9 @@ const HomeCarreras = () => {
 
     return (
         <>
-            
+            <button>
+                <Link to={`/instituciones`}>Volver</Link>
+            </button>
             <h1>Carreras</h1>
             <table>
                 <thead>

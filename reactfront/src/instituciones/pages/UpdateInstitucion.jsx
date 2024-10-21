@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useInstituciones } from '../hooks/useInstituciones';
+import { Link } from "react-router-dom";
 
 const UpdateInstitucion = () => {
     const { id } = useParams();
@@ -77,6 +78,9 @@ const UpdateInstitucion = () => {
 
     return (
         <div>
+            <button>
+                <Link to={`/instituciones`}>Volver</Link>
+            </button>
             <h1>Actualizar Institución</h1>
             <form onSubmit={handleSubmit}>
                 <div>

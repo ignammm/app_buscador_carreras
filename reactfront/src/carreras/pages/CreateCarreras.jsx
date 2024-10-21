@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCarreras } from '../hooks/useCarreras';
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CreateCarrera = () => {
     const { createCarreras } = useCarreras();
@@ -76,6 +77,10 @@ const CreateCarrera = () => {
 
     return (
         <>
+            <button>
+                <Link to={`/instituciones/${id_institucion}/carreras`}>Volver</Link>
+            </button>
+            <h1>Crear carrera</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Nombre</label>
