@@ -4,10 +4,10 @@ export const findAllCarreras = async (id_inst) => {
     try {
         const carreras = await CarreraModel.findAll({
             where: {
-                // id_institucion: id_inst,
+                id_institucion: parseInt(id_inst),
                 estado: 1
             }
-        });
+        }); 
         if (!carreras || carreras.length === 0) {
             throw new Error("No se encontraron carreras");
         }
@@ -43,8 +43,10 @@ export const createCarreraService = async (body) => {
 export const updateCarreraService = async (id, body) => {
     try {
         await CarreraModel.update(body, { where: { id: id } });
+        const carreraActualizada = await CarreraModel.findByPk(id);
         return {
-            message: 'La carrera se actualizó correctamente'
+            message: 'La carrera se actualizó correctamente',
+            carrera: carreraActualizada
         };
     } catch (error) {
         throw new Error( error.message = 'Algo salió mal al actualizar la carrera');

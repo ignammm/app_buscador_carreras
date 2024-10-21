@@ -16,7 +16,7 @@ const CarrerasModel = db.define('Carreras', {
     observacion: { type: DataTypes.STRING(45) },
     estado: { type: DataTypes.INTEGER },
     prioridad: { type: DataTypes.INTEGER },
-    id_institucion: { type: DataTypes.INTEGER}
+    id_institucion: { type: DataTypes.INTEGER }
 });
 
 export default CarrerasModel

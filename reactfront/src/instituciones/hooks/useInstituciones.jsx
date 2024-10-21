@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react';
 const useInstituciones = () => {
     const [instituciones, setInstituciones] = useState([]);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
-
+    const URI = 'http://localhost:8000/instituciones'
    
-   const showInstituciones = async () => {
+    const showInstituciones = async () => {
         try {
-            const url = 'http://localhost:8000/instituciones'
+            const url = URI
             const response = await fetch(url, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,7 +32,7 @@ const useInstituciones = () => {
     const addInstitucion = async (institucion) => {
 
         try {
-            const url = 'http://localhost:8000/instituciones'
+            const url = URI
             const result = await fetch(url, {
                 method: 'POST',
                 headers: {
@@ -63,7 +62,7 @@ const useInstituciones = () => {
 
      const updateInstitucion = async (id, institucion) => { 
          try {
-            const url = `http://localhost:8000/instituciones/${id}`; 
+            const url = `${URI}/${id}`; 
             const result = await fetch(url, {
                 method: 'PUT', 
                 headers: {
@@ -89,7 +88,7 @@ const useInstituciones = () => {
 
     const deleteInstitucion = async (id) => {
         try {
-            const url = `http://localhost:8000/instituciones/${id}`
+            const url = `${URI}/${id}`
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -119,7 +118,6 @@ const useInstituciones = () => {
     return {
         instituciones,
         error,
-        loading,
         setInstituciones,
         addInstitucion,
         updateInstitucion,

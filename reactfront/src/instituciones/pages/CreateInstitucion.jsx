@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useInstituciones } from '../hooks/useInstituciones';
 
 const CreateInstitucion = () => {
@@ -11,7 +11,7 @@ const CreateInstitucion = () => {
     const [ubicacionLong, setUbicacionLong] = useState('');
     const [telefono, setTelefono] = useState('');
     const [pagina, setPagina] = useState('');
-    const [estado, setEstado] = useState(1);
+    const [ estado ] = useState(1);
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {

@@ -6,7 +6,7 @@ export const findAllInstituciones = async () => {
             where: {
                 estado: 1
             }
-        });
+        }); 
         if (!instituciones || instituciones.length === 0) {
             throw new Error("No se encontraron instituciones");
         }

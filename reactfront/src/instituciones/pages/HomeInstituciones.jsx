@@ -1,12 +1,9 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useInstituciones } from "../hooks/useInstituciones";
 
 
 const HomeInstituciones = () => {
     const { instituciones, setInstituciones, deleteInstitucion } = useInstituciones();
-    const navigate = useNavigate();
 
     const handleDelete = async (id) => {
         const result = await deleteInstitucion(id);
@@ -49,7 +46,7 @@ const HomeInstituciones = () => {
                                 <td>
                                     <button onClick={() => handleDelete(institucion.id)}>Eliminar</button>
                                     <button>
-                                        <Link to={`/instituciones/update/${institucion.id}`}>Actualizar</Link>
+                                        <Link to={`/instituciones/${institucion.id}/update`}>Actualizar</Link>
                                     </button>
                                 </td>
                             </tr>

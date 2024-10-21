@@ -6,13 +6,14 @@ import {
     getCarreraById, 
     updateCarrera 
 } from '../controllers/CarrerasController.js';
+import { validationCarrera } from '../middlewares/validations/validationCarrera.js';
 
 const router = express.Router();
 
 router.get('/:id_institucion', getAllCarreras);          
 router.get('/:id', getCarreraById);      
-router.post('/', createCarrera);          
-router.put('/:id', updateCarrera);       
+router.post('/', validationCarrera(), createCarrera);          
+router.put('/:id', validationCarrera(), updateCarrera);       
 router.delete('/:id', deleteCarrera);     
 
 export default router;
