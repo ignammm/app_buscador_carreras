@@ -11,7 +11,7 @@ import { validationCarrera } from '../middlewares/validations/validationCarrera.
 const router = express.Router();
 
 router.get('/:id_institucion', getAllCarreras);          
-router.get('/:id', getCarreraById);      
+router.get('/:id/carrera', getCarreraById);      
 router.post('/', validationCarrera(), createCarrera);          
 router.put('/:id', validationCarrera(), updateCarrera);       
 router.delete('/:id', deleteCarrera);     

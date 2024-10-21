@@ -18,11 +18,31 @@ const useCarreras = () => {
                 throw new Error('Error al obtener las carreras');
             }
 
-            const carreras = await response.json();
-            console.log(carreras);
+            const carreras = await response.json(); 
             setCarreras(carreras)
         } catch (error) {
             console.error('Error en showCarreras:', error.message);
+        }
+    };
+
+    const getCarreraById = async (id) => {
+        try {
+            const response = await fetch(`${URI}/${id}/carrera`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al obtener las carreras');
+            }
+
+            const carrera = await response.json();
+            return carrera;
+        } catch (error) {
+
+            console.log('Error en getCarreraById:', error.message);
         }
     };
 
@@ -64,15 +84,18 @@ const useCarreras = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Error al actualizar la carrera');
+                const errorData = await response.json()
+                console.log(errorData)
+                throw new Error(JSON.stringify(errorData.message));
             }
 
             const carreraActualizada = await response.json();
             console.log('Carrera actualizada:', carreraActualizada);
             setCarreras(carreras.map(carrera => carrera.id === carreraId ? carreraActualizada.carrera : carrera)); 
             return;
+
         } catch (error) {
-            console.error('Error en updateCarreras:', error.message);
+           throw new Error(error.message)
         }
     };
 
@@ -104,6 +127,7 @@ const useCarreras = () => {
         showCarreras,
         createCarreras,
         carreras,
+        getCarreraById,
         setCarreras
     };
 };
