@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useInstituciones } from '../hooks/useInstituciones';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../auth/hooks/logout";
 
 const CreateInstitucion = () => {
     const { addInstitucion } = useInstituciones();
@@ -14,6 +15,7 @@ const CreateInstitucion = () => {
     const [pagina, setPagina] = useState('');
     const [ estado ] = useState(1);
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -67,8 +69,16 @@ const CreateInstitucion = () => {
         return errors;
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
+
     return (
         <>
+            <button onClick={handleLogout}>Cerrar sesion</button>
+            <br />
+            <br /> 
             <button>
                 <Link to={`/instituciones`}>Volver</Link>
             </button>

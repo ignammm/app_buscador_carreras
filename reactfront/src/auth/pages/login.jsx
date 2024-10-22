@@ -28,7 +28,7 @@ const Login = () => {
         localStorage.setItem('token', data.token);
         navigate('/instituciones'); 
       } else {
-        setError(data.message || 'Error en el login');
+        setError(data.message || 'Nombre o clave incorrecta');
       }
     } catch (err) {
       setError('Error en el servidor');

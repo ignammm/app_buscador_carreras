@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useInstituciones } from "../hooks/useInstituciones";
+
 
 
 const HomeInstituciones = () => {
     const { instituciones, setInstituciones, deleteInstitucion } = useInstituciones();
+    const navigate = useNavigate();
 
     const handleDelete = async (id) => {
         const result = await deleteInstitucion(id);
@@ -12,9 +14,16 @@ const HomeInstituciones = () => {
         setInstituciones(instituciones.filter(institucion => institucion.id !== id));
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
 
     return (
         <>
+            <button onClick={handleLogout}>Cerrar sesion</button>
+            <br />
+            <br /> 
             
             <h1>Instituciones</h1>
             <table>

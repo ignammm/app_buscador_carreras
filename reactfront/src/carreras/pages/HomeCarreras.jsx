@@ -1,10 +1,11 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCarreras } from "../hooks/useCarreras";
 import { useEffect } from "react";
 
 const HomeCarreras = () => {
     const { carreras, setCarreras, deleteCarreras, showCarreras } = useCarreras();
     const { id_institucion } = useParams(); 
+    const navigate = useNavigate();
 
     const handleDelete = async (id) => {
         await deleteCarreras(id);
@@ -20,8 +21,16 @@ const HomeCarreras = () => {
         fetchCarreras();
     }, [id_institucion]);
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
+
     return (
         <>
+            <button onClick={handleLogout}>Cerrar sesion</button>
+            <br />
+            <br /> 
             <button>
                 <Link to={`/instituciones`}>Volver</Link>
             </button>

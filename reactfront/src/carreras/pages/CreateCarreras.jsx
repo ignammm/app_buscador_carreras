@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useCarreras } from '../hooks/useCarreras';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 
 const CreateCarrera = () => {
     const { createCarreras } = useCarreras();
@@ -18,6 +19,7 @@ const CreateCarrera = () => {
     const [estado, setEstado] = useState(1);
     const [errors, setErrors] = useState({});
     const { id_institucion } = useParams();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -75,8 +77,16 @@ const CreateCarrera = () => {
         return errors;
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
+
     return (
         <>
+            <button onClick={handleLogout}>Cerrar sesion</button>
+            <br />
+            <br />  
             <button>
                 <Link to={`/instituciones/${id_institucion}/carreras`}>Volver</Link>
             </button>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useInstituciones } from '../hooks/useInstituciones';
 import { Link } from "react-router-dom";
+import { logout } from "../../auth/hooks/logout";
 
 const UpdateInstitucion = () => {
     const { id } = useParams();
@@ -76,8 +77,16 @@ const UpdateInstitucion = () => {
         return errors;
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
+
     return (
         <div>
+            <button onClick={handleLogout}>Cerrar sesion</button>
+            <br />
+            <br /> 
             <button>
                 <Link to={`/instituciones`}>Volver</Link>
             </button>
