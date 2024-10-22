@@ -17,6 +17,18 @@ export const findAllCarreras = async (id_inst) => {
     }
 };
 
+export const findCarreras = async () => {
+    try {
+        const carreras = await CarreraModel.findAll();
+        if (!carreras || carreras.length === 0) {
+            throw new Error("No se encontraron carreras");
+        }
+        return carreras;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
 export const findCarreraById = async (id) => {
     try {
         const carrera = await CarreraModel.findByPk(id);

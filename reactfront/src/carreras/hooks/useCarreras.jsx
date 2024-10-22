@@ -25,6 +25,27 @@ const useCarreras = () => {
         }
     };
 
+    const getCarreras = async () => {
+        try {
+            const response = await fetch(URI, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            
+            });
+            
+            if (!response.ok) {
+                throw new Error('Error al obtener las carreras');
+            }
+
+            const carreras = await response.json(); 
+            return carreras;
+        } catch (error) {
+            console.error('Error en getCarreras', error.message)
+        }
+    }
+
     const getCarreraById = async (id) => {
         try {
             const response = await fetch(`${URI}/${id}/carrera`, {
@@ -127,6 +148,7 @@ const useCarreras = () => {
         showCarreras,
         createCarreras,
         carreras,
+        getCarreras,
         getCarreraById,
         setCarreras
     };

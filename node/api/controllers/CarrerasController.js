@@ -1,5 +1,6 @@
 import { 
     findAllCarreras, 
+    findCarreras,
     findCarreraById, 
     createCarreraService, 
     updateCarreraService, 
@@ -10,6 +11,15 @@ export const getAllCarreras = async (req, res) => {
     try {
         const carreras = await findAllCarreras(req.params.id_institucion); 
         return res.status(200).json(carreras); 
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+export const getCarreras = async (req, res) => {
+    try {
+        const carreras = await findCarreras();
+        return res.status(200).json(carreras);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

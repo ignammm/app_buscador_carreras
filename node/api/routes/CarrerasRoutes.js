@@ -1,6 +1,7 @@
 import express from 'express';
 import { 
-    createCarrera, 
+    createCarrera,
+    getCarreras,
     deleteCarrera, 
     getAllCarreras, 
     getCarreraById, 
@@ -11,7 +12,8 @@ import { validationCarrera } from '../middlewares/validations/validationCarrera.
 const router = express.Router();
 
 router.get('/:id_institucion', getAllCarreras);          
-router.get('/:id/carrera', getCarreraById);      
+router.get('/:id/carrera', getCarreraById);
+router.get('/', getCarreras);      
 router.post('/', validationCarrera(), createCarrera);          
 router.put('/:id', validationCarrera(), updateCarrera);       
 router.delete('/:id', deleteCarrera);     
