@@ -14,67 +14,69 @@ const App = () => {
     return (
         <Router>
             <Routes>
-                
-                <Route path="/" element={<SearchCarreras/>} />
+                <Route path="/" element={<SearchCarreras />} />
                 <Route path="/login" element={<Login />} />
                 
-                <Route 
-                    path="/instituciones" 
+                <Route
+                    path="/instituciones"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute requiredRole="1">
                             <HomeInstituciones />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-                <Route 
-                    path="/instituciones/create" 
+                <Route
+                    path="/instituciones/create"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute requiredRole="1">
                             <CreateInstitucion />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-                <Route 
-                    path="/instituciones/:id/update" 
+                <Route
+                    path="/instituciones/:id/update"
                     element={
-                        <ProtectedRoute>
+                        <ProtectedRoute requiredRole="1">
                             <UpdateInstitucion />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-                <Route 
-                    path="/instituciones/:id_institucion/carreras" 
+                <Route
+                    path="/register"
                     element={
-                        <ProtectedRoute>
-                            <HomeCarreras />
-                        </ProtectedRoute>
-                    } 
-                />
-                <Route 
-                    path="/instituciones/:id_institucion/carreras/create" 
-                    element={
-                        <ProtectedRoute>
-                            <CreateCarrera />
-                        </ProtectedRoute>
-                    } 
-                />
-                <Route 
-                    path="/instituciones/:id_institucion/carreras/:id/update" 
-                    element={
-                        <ProtectedRoute>
-                            <UpdateCarrera />
-                        </ProtectedRoute>
-                    } 
-                />
-                 <Route 
-                    path="/register" 
-                    element={
-                        <ProtectedRoute>
+                        <ProtectedRoute requiredRole="1">
                             <RegisterAdmin />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-
+                
+                
+                <Route
+                    path="/instituciones/:id_institucion/carreras"
+                    element={
+                        <ProtectedRoute requiredRole={["2", "1"]}>
+                            <HomeCarreras />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/instituciones/:id_institucion/carreras/create"
+                    element={
+                        <ProtectedRoute requiredRole={["2", "1"]}>
+                            <CreateCarrera />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/instituciones/:id_institucion/carreras/:id/update"
+                    element={
+                        <ProtectedRoute requiredRole={["2", "1"]}>
+                            <UpdateCarrera />
+                        </ProtectedRoute>
+                    }
+                />
+                
+               
             </Routes>
         </Router>
     );

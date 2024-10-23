@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useInstituciones } from '../hooks/useInstituciones';
 import { Link } from "react-router-dom";
-import { logout } from "../../auth/hooks/logout";
 
 const UpdateInstitucion = () => {
     const { id } = useParams();
@@ -79,6 +78,7 @@ const UpdateInstitucion = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         navigate('/login');
     };
 

@@ -26,7 +26,8 @@ const Login = () => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/instituciones'); 
+        localStorage.setItem('role', data.role);
+        navigate('/instituciones');
       } else {
         setError(data.message || 'Nombre o clave incorrecta');
       }

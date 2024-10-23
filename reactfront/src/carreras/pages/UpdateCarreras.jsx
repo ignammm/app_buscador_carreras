@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCarreras } from '../hooks/useCarreras';
 import { Link } from "react-router-dom";
-import { logout } from "../../auth/hooks/logout";
 
 const UpdateCarrera = () => {
     const { id } = useParams();
@@ -83,6 +82,7 @@ const UpdateCarrera = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         navigate('/login');
     };
 

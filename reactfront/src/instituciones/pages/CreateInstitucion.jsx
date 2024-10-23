@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useInstituciones } from '../hooks/useInstituciones';
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../auth/hooks/logout";
 
 const CreateInstitucion = () => {
     const { addInstitucion } = useInstituciones();
@@ -71,6 +70,7 @@ const CreateInstitucion = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         navigate('/login');
     };
 

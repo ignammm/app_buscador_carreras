@@ -1,15 +1,30 @@
-import { Navigate } from 'react-router-dom'; 
+import { Navigate } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, requiredRole }) => {
   const checkAuthentication = () => {
-    const token = localStorage.getItem('token'); 
-    return !!token; 
+    const token = localStorage.getItem('token');
+    const userRole = localStorage.getItem('role');
+    return { isAuthenticated: !!token, role: userRole };
   };
 
-  const isAuthenticated = checkAuthentication();
+  const { isAuthenticated, role } = checkAuthentication();
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  if (Array.isArray(requiredRole)) {
+    // eslint-disable-next-line react/prop-types
+    const hasRole = requiredRole.includes(role);
+    if (!hasRole) {
+      return <Navigate to="/" />;
+    }
+  } else if (role !== requiredRole) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
 };
 
-export {ProtectedRoute};
+export { ProtectedRoute };

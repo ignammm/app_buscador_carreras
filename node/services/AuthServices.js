@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 import AdministradorModel from '../models/AdministradorModel.js'
-import { createAdminRoleServices } from './AuthorizationServices.js';
+import { createAdminRoleServices, getAdminRole } from './AuthorizationServices.js';
 // import redisClient from '../config/redisConfig.js';
 
 export const registerAdminService = async (nombre, clave, id_institucion) => {
@@ -72,7 +72,10 @@ export const loginAdminService = async (nombre, clave) => {
             { expiresIn: '1h' }
         );
 
-        return { error: false, token };
+
+        const result = await getAdminRole(admin.id);        
+
+        return { error: false, token, role: result.role };
     } catch (error) {
         console.error('Error en loginAdminService:', error.message);
         return { error: true, msg: 'Error en el servidor' };

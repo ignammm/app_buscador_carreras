@@ -41,7 +41,7 @@ export const loginAdmin = async (req, res) => {
             return res.status(400).json({ msg: result.msg });
         }
 
-        res.json({ token: result.token });
+        res.json({ token: result.token, role: result.role });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Error en el servidor');
