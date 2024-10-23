@@ -1,6 +1,17 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useInstituciones } from '../hooks/useInstituciones';
 import { Link, useNavigate } from "react-router-dom";
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+
+const mapContainerStyle = {
+    width: '40%',
+    height: '400px',
+};
+
+const center = {
+    lat: -29.145751843241126, 
+    lng: -59.26261844268319,
+};
 
 const CreateInstitucion = () => {
     const { addInstitucion } = useInstituciones();
@@ -12,9 +23,13 @@ const CreateInstitucion = () => {
     const [ubicacionLong, setUbicacionLong] = useState('');
     const [telefono, setTelefono] = useState('');
     const [pagina, setPagina] = useState('');
-    const [ estado ] = useState(1);
+    const [estado] = useState(1);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: 'AIzaSyBCtJ40rDSG_zsjFFKBL_soOwXT-8vHD9U', // Asegúrate de tener tu API key
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,8 +46,6 @@ const CreateInstitucion = () => {
             estado
         };
 
-        console.log(formData)
-
         try {
             const result = await addInstitucion(formData);
             window.alert(result.message);
@@ -47,16 +60,10 @@ const CreateInstitucion = () => {
             setTelefono('');
             setPagina('');
 
-            setErrors({}); 
-
         } catch (error) {
-            try {
-                const errorMessages = JSON.parse(error.message);  
-                const formattedErrors = handleApiErrors(errorMessages); 
-                setErrors(formattedErrors); 
-            } catch (parseError) {
-                console.error('Error al parsear los errores:', parseError);
-            }
+            const errorMessages = JSON.parse(error.message);  
+            const formattedErrors = handleApiErrors(errorMessages); 
+            setErrors(formattedErrors); 
         }
     };
 
@@ -74,6 +81,13 @@ const CreateInstitucion = () => {
         localStorage.removeItem('id_institucion');
         navigate('/login');
     };
+
+    const onMapClick = useCallback((event) => {
+        setUbicacionLat(event.latLng.lat());
+        setUbicacionLong(event.latLng.lng());
+    }, []);
+
+    if (!isLoaded) return <div>Loading...</div>;
 
     return (
         <>
@@ -160,6 +174,21 @@ const CreateInstitucion = () => {
                     />
                     {errors.pagina && <p style={{ color: 'red' }}>{errors.pagina}</p>}
                 </div>
+
+                <div style={{ marginTop: '20px' }}>
+                    <h2>Selecciona la ubicación en el mapa:</h2>
+                    <GoogleMap
+                        mapContainerStyle={mapContainerStyle}
+                        center={center}
+                        zoom={14}
+                        onClick={onMapClick}
+                    >
+                        {ubicacionLat && ubicacionLong && (
+                            <Marker position={{ lat: parseFloat(ubicacionLat), lng: parseFloat(ubicacionLong) }} />
+                        )}
+                    </GoogleMap>
+                </div>
+
                 <button type='submit'>Crear</button>
             </form>
         </>

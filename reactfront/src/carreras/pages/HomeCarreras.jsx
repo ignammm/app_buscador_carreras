@@ -19,6 +19,7 @@ const HomeCarreras = () => {
         };
 
         fetchCarreras();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id_institucion]);
 
     const handleLogout = () => {
@@ -36,7 +37,7 @@ const HomeCarreras = () => {
             <button>
                 <Link to={`/instituciones`}>Volver</Link>
             </button>
-            <h1>Carreras</h1>
+            <h1>Carreras de la Institucion:</h1>
             <table>
                 <thead>
                     <tr>
