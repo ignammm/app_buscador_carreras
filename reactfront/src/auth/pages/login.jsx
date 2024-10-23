@@ -23,10 +23,12 @@ const Login = () => {
       });
 
       const data = await response.json();
-
+      console.log(data.token);
+      
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.role);
+        localStorage.setItem('id_institucion', data.id_institucion);
         navigate('/instituciones');
       } else {
         setError(data.message || 'Nombre o clave incorrecta');

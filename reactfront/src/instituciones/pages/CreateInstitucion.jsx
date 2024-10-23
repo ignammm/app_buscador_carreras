@@ -71,6 +71,7 @@ const CreateInstitucion = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        localStorage.removeItem('id_institucion');
         navigate('/login');
     };
 

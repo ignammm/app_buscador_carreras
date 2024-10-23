@@ -17,11 +17,17 @@ const HomeInstituciones = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        localStorage.removeItem('id_institucion');
         navigate('/login');
     };
 
     return (
         <>
+            <button>
+                <Link to={'/register'}>Registrar Admin</Link>
+            </button>
+            <br />
+            <br />
             <button onClick={handleLogout}>Cerrar sesion</button>
             <br />
             <br /> 

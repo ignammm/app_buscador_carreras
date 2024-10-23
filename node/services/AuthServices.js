@@ -49,7 +49,7 @@ export const registerAdminService = async (nombre, clave, id_institucion) => {
 export const loginAdminService = async (nombre, clave) => {
     try {
         const admin = await AdministradorModel.findOne({ where: { nombre } });
-
+        
         if (!admin) {
             return { error: true, msg: 'Admin no existe' };
         }
@@ -75,7 +75,7 @@ export const loginAdminService = async (nombre, clave) => {
 
         const result = await getAdminRole(admin.id);        
 
-        return { error: false, token, role: result.role };
+        return { error: false, token, role: result.role, id_institucion: admin.id_institucion };
     } catch (error) {
         console.error('Error en loginAdminService:', error.message);
         return { error: true, msg: 'Error en el servidor' };
