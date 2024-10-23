@@ -2,9 +2,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { validationResult } from 'express-validator';
 import { loginAdminService, registerAdminService, validateTokenService, logoutService } from '../../services/AuthServices.js';
+import { createAdminRoleServices } from '../../services/AuthorizationServices.js';
 
 export const registerAdmin = async (req, res) => {
-    const { nombre, clave } = req.body;
+    const { nombre, clave, id_institucion } = req.body;
 
     try {
         const errors = validationResult(req);
@@ -12,7 +13,7 @@ export const registerAdmin = async (req, res) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const result = await registerAdminService(nombre, clave);
+        const result = await registerAdminService(nombre, clave, id_institucion);
 
         if (result.error) {
             return res.status(400).json({ msg: result.msg });

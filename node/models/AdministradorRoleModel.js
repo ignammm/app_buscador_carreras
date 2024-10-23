@@ -1,23 +1,26 @@
-import db from "../database/db";
-import { DataTypes } from "sequelize";
-import AdministradorModel from "./AdministradorModel.js";
-import RolesModel from "./RolModel.js";
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../database/db.js'; 
 
-const AdministradorRoleModel = db.define('administradores_roles', {
-    id_administrador: {
+class AdministradorRoleModel extends Model {}
+
+AdministradorRoleModel.init({
+    id_admin: {
         type: DataTypes.INTEGER,
-        references: {
-            model: AdministradorModel,
-            key: 'id'
-        }
+        allowNull: false,
     },
-    id_role: {
+    id_rol: {
         type: DataTypes.INTEGER,
-        references: {
-            model: RolesModel,
-            key: 'id'
-        }
-    }
+        allowNull: false,
+    },
+}, {
+    sequelize,
+    modelName: 'AdministradoresRoles',
+    timestamps: false, 
+    tableName: 'administradores_roles', 
+    underscored: true, 
 });
 
-export default AdministradorModel
+
+AdministradorRoleModel.removeAttribute('id'); 
+
+export default AdministradorRoleModel;

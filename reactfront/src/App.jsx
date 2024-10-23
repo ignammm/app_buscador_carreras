@@ -8,6 +8,7 @@ import { UpdateCarrera } from "./carreras/pages/UpdateCarreras";
 import { SearchCarreras } from "./carreras/pages/SearchCarreras";
 import { Login } from "./auth/pages/login";
 import { ProtectedRoute } from "./routes/privateRoutes";
+import { RegisterAdmin } from "./auth/pages/register";
 
 const App = () => {
     return (
@@ -62,6 +63,14 @@ const App = () => {
                     element={
                         <ProtectedRoute>
                             <UpdateCarrera />
+                        </ProtectedRoute>
+                    } 
+                />
+                 <Route 
+                    path="/register" 
+                    element={
+                        <ProtectedRoute>
+                            <RegisterAdmin />
                         </ProtectedRoute>
                     } 
                 />

@@ -1,13 +1,11 @@
-import bcrypt from 'bcryptjs';
-import jwtr from 'jwtr';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
-import { validationResult } from 'express-validator';
 import AdministradorModel from '../models/AdministradorModel.js'
+import { createAdminRoleServices } from './AuthorizationServices.js';
 // import redisClient from '../config/redisConfig.js';
 
-export const registerAdminService = async (nombre, clave) => {
+export const registerAdminService = async (nombre, clave, id_institucion) => {
     try {
         let admin = await AdministradorModel.findOne({ where: { nombre } });
 
@@ -17,10 +15,17 @@ export const registerAdminService = async (nombre, clave) => {
 
         admin = new AdministradorModel({
             nombre: nombre,
-            clave: clave
+            clave: clave,
+            id_institucion: id_institucion
         });
 
         await admin.save();
+
+        try {
+            const result = await createAdminRoleServices(admin.id);
+        } catch (error) {
+            throw new Error("Error al asignarle el role al admin.")
+        }
 
         const payload = {
             admin: {
